@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>財金作品集 - 鍾佳言</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         body {
             font-family: "Microsoft JhengHei", sans-serif;
@@ -20,11 +18,49 @@
             text-align: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
+
+        /* --- 返回首頁按鈕：固定在最左上角 --- */
+        .back-home { 
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1000;
+            text-decoration: none; 
+            color: #444; 
+            font-weight: bold; 
+            background: white;
+            padding: 8px 15px;
+            border-radius: 50px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-size: 0.9em;
+            transition: 0.3s;
         }
+        .back-home:hover { background: #ffcc00; color: #000; }
+
+        /* --- 核心版面配置 --- */
+        .main-layout {
+            display: flex;
+            max-width: 1200px; 
+            margin: 30px auto;
+            padding: 0 20px;
+            gap: 30px; 
+            align-items: flex-start;
+        }
+
+        /* 左側欄：動機在上，時間軸在下 */
+        .sidebar-left {
+            flex: 1; 
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* 右側欄：主要資料區塊 */
+        .content-right {
+            flex: 2; 
+        }
+
+        /* --- 卡片與內容樣式 --- */
         .project-card {
             background: white;
             border-radius: 15px;
@@ -39,8 +75,11 @@
             font-size: 0.8em;
             font-weight: bold;
         }
-        
-        /* --- 輪播圖樣式 (換場動畫) --- */
+
+        .timeline-list { list-style: none; padding-left: 0; }
+        .timeline-item { margin-bottom: 15px; padding-left: 15px; border-left: 3px solid #ffcc00; }
+
+        /* 輪播圖樣式 */
         .slideshow-container {
             max-width: 100%;
             position: relative;
@@ -50,209 +89,132 @@
             background: #ebeeee;
             height: 350px;
         }
-        .mySlides {
-            display: none;
-            height: 100%;
-            text-align: center;
-        }
-        .mySlides img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background-color: #fff;
-        }
-        .slide-fade {
-            animation: slideFade 0.6s ease-in-out;
-        }
-        @keyframes slideFade {
-            from { opacity: 0; transform: translateX(20px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        .prev, .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            padding: 16px;
-            margin-top: -22px;
-            color: #ffcc00;
-            font-weight: bold;
-            font-size: 24px;
-            transition: 0.3s;
-            z-index: 2;
-            text-decoration: none;
-        }
+        .mySlides { display: none; height: 100%; text-align: center; }
+        .mySlides img { width: 100%; height: 100%; object-fit: contain; background-color: #fff; }
+        .slide-fade { animation: slideFade 0.6s ease-in-out; }
+        @keyframes slideFade { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        .prev, .next { cursor: pointer; position: absolute; top: 50%; padding: 16px; margin-top: -22px; color: #ffcc00; font-weight: bold; font-size: 24px; transition: 0.3s; z-index: 2; text-decoration: none; }
         .next { right: 0; }
-        .prev:hover, .next:hover { color: #333; background-color: rgba(255,204,0,0.2); }
         .dot-container { text-align: center; margin-bottom: 15px; }
-        .dot {
-            cursor: pointer;
-            height: 10px;
-            width: 10px;
-            margin: 0 4px;
-            background-color: #bbb;
-            border-radius: 50%;
-            display: inline-block;
-            transition: 0.3s;
-        }
+        .dot { cursor: pointer; height: 10px; width: 10px; margin: 0 4px; background-color: #bbb; border-radius: 50%; display: inline-block; transition: 0.3s; }
         .active, .dot:hover { background-color: #ffcc00; transform: scale(1.2); }
 
-        /* --- 下拉選單樣式 --- */
-        details {
-            margin-top: 15px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            background: #f9fbfb;
-            transition: all 0.3s ease;
-        }
-        summary {
-            padding: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            color: #555;
-            outline: none;
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        summary::after {
-            content: '▼';
-            font-size: 0.8em;
-            color: #aaa;
-            transition: transform 0.3s;
-        }
-        details[open] summary::after { transform: rotate(180deg); color: #ffcc00; }
-        summary:hover { background-color: #fff9e6; }
-        details[open] { background: #fff; border-color: #ffcc00; }
+        /* 下拉選單 */
+        details { margin-top: 15px; border: 1px solid #e0e0e0; border-radius: 8px; background: #f9fbfb; }
+        summary { padding: 12px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; list-style: none; }
+        summary::after { content: '▼'; font-size: 0.8em; color: #aaa; transition: 0.3s; }
+        details[open] summary::after { transform: rotate(180deg); }
         .details-content { padding: 15px; border-top: 1px solid #eee; font-size: 0.95em; }
-
-        /* --- 檔案與影片連結樣式 --- */
-        .resource-box {
-            margin-top: 15px;
-            padding: 15px;
-            background: #f4f7f6;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .link-item {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: #444;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-        .link-item:hover { color: #ffcc00; }
-        .icon { margin-right: 10px; font-size: 1.2em; }
-
-        /* 影片響應式容器 */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 比例 */
-            height: 0;
-            overflow: hidden;
-            margin-top: 10px;
-            border-radius: 8px;
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .back-home { display: inline-block; margin-bottom: 20px; text-decoration: none; color: #888; font-weight: bold; }
-        h2 { color: #2c3e50; margin-top: 10px; }
-        .formula { background: #f4f7f6; padding: 15px; border-radius: 8px; text-align: center; margin: 10px 0; border: 1px dashed #ddd; }
+        
+        .resource-box { margin-top: 15px; padding: 15px; background: #f4f7f6; border-radius: 10px; display: flex; flex-direction: column; gap: 10px; }
+        .link-item { display: flex; align-items: center; text-decoration: none; color: #444; font-weight: bold; }
+        
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 10px; border-radius: 8px; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
         .photo-placeholder { width: 100%; height: 350px; background: #eee; margin: 15px 0; display: flex; justify-content: center; align-items: center; border-radius: 10px; overflow: hidden; }
-        .photo-placeholder img { width: 100%; height: 100%; object-fit: contain; background-color: #fff; }
+        .photo-placeholder img { width: 100%; height: 100%; object-fit: contain; }
+
+        @media (max-width: 850px) {
+            .main-layout { flex-direction: column; }
+            .back-home { position: absolute; top: 10px; left: 10px; }
+        }
     </style>
 </head>
 <body>
+
+<a href="index.html" class="back-home">← 返回首頁</a>
 
 <header>
     <h1>💰 財金領域探索</h1>
     <p>從基礎理財到量化分析的成長軌跡</p>
 </header>
 
-<div class="container">
-    <a href="index.html" class="back-home">← 返回首頁</a>
-
-    <div class="project-card">
-        <span class="project-tag">高三專題</span>
-        <h2>Python x Monte Carlo Simulation：股票趨勢與資產配置</h2>
-        <p>2026年2月，我在 YouTube 的推薦影片中首次接觸到蒙地卡羅模擬法，並因此對其是否能應用於股票價格預測產生濃厚興趣。我以其理論為基礎，運用python設立模型預估了台積電、Tesla、NVIDIA等多家知名公司的 2027 年股價，更結合現代投資組合理論（MPT）探討TSMC與Boeing、JPMorgan、Alphabet Inc.等組合之最佳資產配置。最終，我於 2026 年 3 月 19 日以全英文完成研究成果的上台報告。</p>
-        
-        <div class="slideshow-container">
-            <div class="mySlides slide-fade"><img src="monte_carlo_chart1.jpg.png"></div>
-            <div class="mySlides slide-fade"><img src="monte_carlo_chart2.jpg.png"></div>
-            <div class="mySlides slide-fade"><img src="monte_carlo_chart3.jpg.png"></div>
-            <div class="mySlides slide-fade"><img src="monte_carlo_chart4.jpg.png"></div>
-            <div class="mySlides slide-fade"><img src="monte_carlo_chart5.jpg.png"></div>
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+<div class="main-layout">
+    
+    <aside class="sidebar-left">
+        <div class="project-card">
+            <h3>🎯 個人學習動機</h3>
+            <p>我對金融市場的運作充滿好奇，特別是數據如何轉化為投資決策。透過自主學習 Python 與統計學，我希望能夠以理性的方式探索財金領域。</p>
         </div>
-        
-        <div class="dot-container">
-            <span class="dot" onclick="currentSlide(1)"></span> 
-            <span class="dot" onclick="currentSlide(2)"></span> 
-            <span class="dot" onclick="currentSlide(3)"></span> 
-            <span class="dot" onclick="currentSlide(4)"></span> 
-            <span class="dot" onclick="currentSlide(5)"></span> 
-        </div>
-        
-        <details>
-            <summary>查看研究細節與相關資源</summary>
-            <div class="details-content">
-                <p>我採用幾何布朗運動 (GBM) 來預測股價路徑：</p>
-                <div class="formula">$$dS_t = \mu S_t dt + \sigma S_t dW_t$$</div>
-                
-                <div class="resource-box">
-                    <strong>📄 相關檔案下載：</strong>
-                    <a href="monte-carlo-report.pdf" class="link-item" target="_blank">
-                        <span class="icon">📁</span> 完整研究報告 (PDF)
-                    </a>
-                    <a href="monte_carlo_code.zip" class="link-item">
-                        <span class="icon">💻</span> Python 模擬原始碼 (ZIP)
-                    </a>
 
-                    <hr style="border:0; border-top:1px solid #ddd; margin:10px 0;">
-                    
-                    <strong>📺 專案說明影片：</strong>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/你的影片ID" frameborder="0" allowfullscreen></iframe>
+        <div class="project-card">
+            <h3>📅 學習時間軸</h3>
+            <div class="timeline-list">
+                <div class="timeline-item">
+                    <strong>高三：</strong> 專注於蒙地卡羅模擬與量化投資研究。
+                </div>
+                <div class="timeline-item" style="border-left-color: #ddd;">
+                    <strong>高二：</strong> 參與財金營隊，初步接觸基本面分析。
+                </div>
+                <div class="timeline-item" style="border-left-color: #ddd;">
+                    <strong>高一：</strong> 選修投資理財入門，建立正確理財觀念。
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="content-right">
+        
+        <div class="project-card">
+            <span class="project-tag">高三專題</span>
+            <h2>Python x Monte Carlo Simulation：股票趨勢與資產配置</h2>
+            <p>2026年2月，我在 YouTube 的推薦影片中首次接觸到蒙地卡羅模擬法，並因此對其是否能應用於股票價格預測產生濃厚興趣。我以其理論為基礎，運用python設立模型預估了台積電、Tesla、NVIDIA等多家知名公司的 2027 年股價，更結合現代投資組合理論（MPT）探討TSMC與Boeing、JPMorgan、Alphabet Inc.等組合之最佳資產配置。最終，我於 2026 年 3 月 19 日以全英文完成研究成果的上台報告。</p>
+            
+            <div class="slideshow-container">
+                <div class="mySlides slide-fade"><img src="monte_carlo_chart1.jpg.png"></div>
+                <div class="mySlides slide-fade"><img src="monte_carlo_chart2.jpg.png"></div>
+                <div class="mySlides slide-fade"><img src="monte_carlo_chart3.jpg.png"></div>
+                <div class="mySlides slide-fade"><img src="monte_carlo_chart4.jpg.png"></div>
+                <div class="mySlides slide-fade"><img src="monte_carlo_chart5.jpg.png"></div>
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+            
+            <div class="dot-container">
+                <span class="dot" onclick="currentSlide(1)"></span> 
+                <span class="dot" onclick="currentSlide(2)"></span> 
+                <span class="dot" onclick="currentSlide(3)"></span> 
+                <span class="dot" onclick="currentSlide(4)"></span> 
+                <span class="dot" onclick="currentSlide(5)"></span> 
+            </div>
+            
+            <details>
+                <summary>查看相關資源</summary>
+                <div class="details-content">
+                    <div class="resource-box">
+                        <strong>📄 相關檔案下載：</strong>
+                        <a href="monte_carlo_report.pdf" class="link-item" target="_blank">📁 完整研究報告 (PDF)</a>
+                        <a href="monte_carlo_code.zip" class="link-item">💻 Python 模擬原始碼 (ZIP)</a>
+                        <hr style="border:0; border-top:1px solid #ddd; margin:10px 0;">
+                        <strong>📺 專案說明影片：</strong>
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/你的影片ID" frameborder="0" allowfullscreen></iframe>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </details>
-    </div>
-
-    <div class="project-card">
-        <span class="project-tag">高一選修</span>
-        <h2>投資理財入門：上台報告與學習成果</h2>
-        <p>初次接觸金融市場，學習基本面分析與個人財務規劃。</p>
-        <div class="photo-placeholder">
-            <img src="presentation_photo.jpg" alt="上台報告照片">
+            </details>
         </div>
 
-        <details>
-            <summary>查看學習心得與報告檔案</summary>
-            <div class="details-content">
-                <p><strong>心得：</strong> 向同學解釋投資邏輯時，大幅提升了我的溝通能力。</p>
-                <div class="resource-box">
-                    <a href="investment_slides.pdf" class="link-item" target="_blank">
-                        <span class="icon">📊</span> 上台報告簡報 (PDF)
-                    </a>
-                    <a href="https://youtu.be/你的影片ID" class="link-item" target="_blank">
-                        <span class="icon">🔗</span> 觀看上台發表紀錄影片
-                    </a>
-                </div>
+        <div class="project-card">
+            <span class="project-tag">高一選修</span>
+            <h2>投資理財入門：上台報告與學習成果</h2>
+            <p>初次接觸金融市場，學習基本面分析與個人財務規劃。</p>
+            <div class="photo-placeholder">
+                <img src="presentation_photo.jpg" alt="上台報告照片">
             </div>
-        </details>
-    </div>
+            <details>
+                <summary>查看學習心得與報告檔案</summary>
+                <div class="details-content">
+                    <p><strong>心得：</strong> 向同學解釋投資邏輯時，大幅提升了我的溝通能力。</p>
+                    <div class="resource-box">
+                        <a href="investment_slides.pdf" class="link-item" target="_blank">📊 上台報告簡報 (PDF)</a>
+                        <a href="https://youtu.be/你的影片ID" class="link-item" target="_blank">🔗 觀看上台發表紀錄影片</a>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+    </main>
 </div>
 
 <script>
@@ -271,10 +233,12 @@
         slideIndex++;
         if (slideIndex > slides.length) {slideIndex = 1}    
         for (i = 0; i < dots.length; i++) { dots[i].className = dots[i].className.replace(" active", ""); }
-        slides[slideIndex-1].style.display = "block";  
-        void slides[slideIndex-1].offsetWidth; 
-        slides[slideIndex-1].classList.add("slide-fade");
-        dots[slideIndex-1].className += " active";
+        if(slides[slideIndex-1]) {
+            slides[slideIndex-1].style.display = "block";  
+            void slides[slideIndex-1].offsetWidth; 
+            slides[slideIndex-1].classList.add("slide-fade");
+            dots[slideIndex-1].className += " active";
+        }
         slideTimer = setTimeout(showSlides, 5000); 
     }
 

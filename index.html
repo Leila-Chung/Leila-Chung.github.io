@@ -1,103 +1,211 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>鍾佳言的個人網站</title>
     <style>
-        body {
-            font-family: "Microsoft JhengHei", sans-serif;
+        /* 基礎重設 */
+        * {
             margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* --- 背景圖片設定區 --- */
-            background-image: url('你的圖片網址.jpg'); /* 替換成你的圖片路徑 */
-            background-size: cover; /* 讓圖片鋪滿整個螢幕 */
-            background-position: center; /* 圖片置中 */
-            background-attachment: fixed; /* 捲動時背景固定 */
-            background-color: #f0f2f5; /* 圖片失效時的備用底色 */
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        /* 整個核心區域的容器 */
-        .main-wrapper {
-            position: relative;
-            width: 500px;
-            height: 500px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        body {
+            font-family: "Microsoft JhengHei", -apple-system, sans-serif;
+            line-height: 1.7;
+            color: #444;
+            /* 淡色系漸層背景：從淺藍到淺粉 */
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
         }
 
-        /* 中間的方形自介區塊 */
-        .center-card {
-            background: rgba(255, 255, 255, 0.9); /* 半透明白色，透出背景感 */
-            backdrop-filter: blur(10px); /* 磨砂玻璃效果 */
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* 標題區 */
+        header {
             text-align: center;
-            z-index: 10;
-            width: 220px;
+            margin-bottom: 50px;
         }
 
-        /* 圓圈按鈕的通用樣式 */
-        .circle-link {
-            position: absolute;
-            text-decoration: none;
-            color: white;
-            width: 110px;
-            height: 110px;
+        .avatar {
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
+            border: 5px solid white;
+            margin: 0 auto 20px;
+            background: #fff;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            color: #777;
+            font-size: 1.1em;
+        }
+
+        /* 內容區塊 */
+        .section {
+            background: rgba(255, 255, 255, 0.7); /* 半透明白 */
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.03);
+        }
+
+        h2 {
+            color: #5a7d9a; /* 柔和的藍灰色 */
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        /* 圓形導覽區塊 (你的核心需求) */
+        .navigation-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .nav-circle {
+            text-decoration: none;
+            color: #444;
+            background: white;
+            padding: 20px;
+            border-radius: 15px; /* 這裡改為圓角矩形，若要純圓可改 50% 但內容較難放 */
+            text-align: center;
             font-weight: bold;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
         }
 
-        .circle-link:hover {
-            transform: scale(1.15);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        /* 懸停放大效果 */
+        .nav-circle:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background: #fff;
         }
 
-        /* --- 四個圓圈的位置設定 (環繞四周) --- */
-        .finance { background-color: #ffcc00; top: 0; left: 0; }      /* 左上 */
-        .tech { background-color: #4a90e2; top: 0; right: 0; }     /* 右上 */
-        .humanity { background-color: #7ed321; bottom: 0; left: 0; } /* 左下 */
-        .art { background-color: #f5a623; bottom: 0; right: 0; }      /* 右下 */
+        /* 四大區塊淡色標籤 */
+        .finance-tag { border-top: 5px solid #FFF4BD; }
+        .tech-tag { border-top: 5px solid #D0E7FF; }
+        .humanity-tag { border-top: 5px solid #E2F5D3; }
+        .art-tag { border-top: 5px solid #FFDEEB; }
 
-        .circle-link span { font-size: 1.5em; }
-        h1 { font-size: 1.5em; margin: 10px 0; color: #333; }
-        p { font-size: 0.9em; color: #666; }
+        .icon { font-size: 1.5em; }
+
+        /* 聯絡連結 */
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .links a {
+            color: #5a7d9a;
+            text-decoration: none;
+            padding: 8px 20px;
+            border: 1.5px solid #5a7d9a;
+            border-radius: 25px;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+
+        .links a:hover {
+            background: #5a7d9a;
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            color: #888;
+            margin-top: 40px;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
 
-    <div class="main-wrapper">
-        <div class="center-card">
+    <div class="container">
+        <header>
+            <div class="avatar">🍀</div>
             <h1>鍾佳言</h1>
-            <p>跨領域學習者<br>探索知識的交集</p>
-        </div>
+            <p class="tagline">跨領域學習者 | 資安研究 | 人文探索</p>
+            <div class="links">
+                <a href="mailto:your@email.com">Email</a>
+                <a href="#">GitHub</a>
+                <a href="#">IG</a>
+            </div>
+        </header>
 
-        <a href="finance.html" class="circle-link finance">
-            <span>💰</span>財金
-        </a>
-        
-        <a href="tech.html" class="circle-link tech">
-            <span>💻</span>資訊
-        </a>
-        
-        <a href="humanity.html" class="circle-link humanity">
-            <span>📖</span>人文
-        </a>
-        
-        <a href="art.html" class="circle-link art">
-            <span>🎨</span>藝術
-        </a>
+        <section class="section">
+            <h2>👤 About Me</h2>
+            <p>你好，我是鍾佳言。目前專注於跨領域的學習與整合，我相信不同學科間的碰撞能產生最有趣的火花。</p>
+            <p>這是我記錄成長歷程的空間，包含了我對財金、資訊、人文與藝術的熱情。</p>
+        </section>
+
+        <section class="section">
+            <h2>核心歷程 (點擊探索)</h2>
+            <div class="navigation-grid">
+                <a href="finance.html" class="nav-circle finance-tag">
+                    <span class="icon">💰</span>
+                    <span>財金領域</span>
+                </a>
+                <a href="tech.html" class="nav-circle tech-tag">
+                    <span class="icon">💻</span>
+                    <span>資訊科技</span>
+                </a>
+                <a href="humanity.html" class="nav-circle humanity-tag">
+                    <span class="icon">📖</span>
+                    <span>人文社會</span>
+                </a>
+                <a href="art.html" class="nav-circle art-tag">
+                    <span class="icon">🎨</span>
+                    <span>藝術創作</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>🚀 Skills & Interests</h2>
+            <p><strong>資訊安全：</strong> Web 滲透測試、漏洞研究</p>
+            <p><strong>財務金融：</strong> 市場趨勢分析、理財規劃</p>
+            <p><strong>人文藝術：</strong> 攝影、社會觀察、視覺設計</p>
+        </section>
+
+        <footer>
+            <p>© 2026 鍾佳言. Built with ❤️</p>
+        </footer>
     </div>
 
 </body>

@@ -72,6 +72,7 @@
             transition: 0.6s ease;
             user-select: none;
             text-decoration: none;
+            z-index: 2;
         }
         .next { right: 0; }
         .prev:hover, .next:hover { background-color: rgba(0,0,0,0.1); }
@@ -188,11 +189,11 @@
         <details>
             <summary>查看研究細節與數學模型</summary>
             <div class="details-content">
-                <p>我採用幾何布朗運動 (GBM) 來模擬股價路徑：</p>
+                <p>我採用幾何布朗運動 (GBM) 來預測股價路徑：</p>
                 <div class="formula">$$dS_t = \mu S_t dt + \sigma S_t dW_t$$</div>
                 <ul>
                     <li><strong>隨機漫步：</strong> 透過 Python 生成 10,000 條路徑。</li>
-                    <li><strong>資產配置：</strong> 分析了不同比例下的回撤風險。</li>
+                    <li><strong>資產配置：</strong> 分析了不同比例下的回撤風險與夏普比率。</li>
                 </ul>
             </div>
         </details>
@@ -212,7 +213,7 @@
                 <p><strong>報告主題：</strong> 《小資族的複利致富之路》</p>
                 <ul>
                     <li><strong>核心收穫：</strong> 理解複利效應與 72 法則。</li>
-                    <li><strong>心得：</strong> 解釋「風險分散」訓練了我的邏輯表達力。</li>
+                    <li><strong>心得：</strong> 向同學解釋投資邏輯時，大幅提升了我的溝通能力。</li>
                 </ul>
             </div>
         </details>

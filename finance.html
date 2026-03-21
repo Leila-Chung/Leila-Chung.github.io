@@ -14,7 +14,7 @@
         }
         header {
             background: #ffcc00;
-            padding: 2rem;
+            padding: 2.5rem;
             text-align: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
@@ -29,13 +29,13 @@
             color: #444; 
             font-weight: bold; 
             background: white;
-            padding: 8px 15px;
+            padding: 8px 18px;
             border-radius: 50px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
             font-size: 0.9em;
             transition: 0.3s;
         }
-        .back-home:hover { background: #ffcc00; color: #000; }
+        .back-home:hover { background: #ffcc00; color: #000; transform: scale(1.05); }
 
         /* 核心佈局 */
         .main-layout {
@@ -44,18 +44,18 @@
             margin: 30px auto;
             padding: 0 20px;
             gap: 30px; 
-            align-items: flex-start; /* 重要：確保 sticky 起作用 */
+            align-items: flex-start;
         }
 
-        /* --- 左側欄凍結效果 (Sticky Sidebar) --- */
+        /* 左側欄凍結效果 (Excel 凍結格效果) */
         .sidebar-left {
             flex: 1; 
             display: flex;
             flex-direction: column;
             gap: 20px;
-            position: -webkit-sticky; /* 支援 Safari */
+            position: -webkit-sticky;
             position: sticky;
-            top: 20px; /* 捲動到頂部時距離邊界 20px */
+            top: 20px;
         }
 
         .content-right {
@@ -69,59 +69,89 @@
             margin-bottom: 30px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
+
         .project-tag {
             background: #ffcc00;
             padding: 5px 12px;
             border-radius: 20px;
-            font-size: 0.8em;
+            font-size: 0.85em;
             font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
         }
 
-        /* 輪播圖樣式 */
+        /* --- 輪播圖容器 --- */
         .slideshow-container {
             max-width: 100%;
             position: relative;
             margin: 15px 0;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
-            background: #ebeeee;
-            height: 350px;
+            background: #fff;
+            height: 380px;
+            border: 1px solid #eee;
         }
-        .mySlides1, .mySlides2 { display: none; height: 100%; text-align: center; }
-        .mySlides1 img, .mySlides2 img { width: 100%; height: 100%; object-fit: contain; background-color: #fff; }
-        
+
+        /* 淡入淡出動畫 */
+        .fade {
+            animation-name: fade;
+            animation-duration: 1.5s;
+        }
+        @keyframes fade {
+            from { opacity: 0.4; } 
+            to { opacity: 1; }
+        }
+
+        .mySlides1, .mySlides2 {
+            display: none;
+            height: 100%;
+            text-align: center;
+        }
+
+        .mySlides1 img, .mySlides2 img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* 確保圖片不變形 */
+        }
+
+        /* 左右按鈕 */
         .prev, .next {
             cursor: pointer;
             position: absolute;
             top: 50%;
+            width: auto;
             padding: 16px;
             margin-top: -22px;
             color: #ffcc00;
             font-weight: bold;
-            font-size: 24px;
-            transition: 0.3s;
-            z-index: 2;
+            font-size: 25px;
+            transition: 0.4s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
             text-decoration: none;
+            background-color: rgba(255, 255, 255, 0.3);
         }
-        .next { right: 0; }
+        .next { right: 0; border-radius: 3px 0 0 3px; }
+        .prev:hover, .next:hover { background-color: rgba(0, 0, 0, 0.1); }
 
         /* 下拉選單與資源區 */
-        details { margin-top: 15px; border: 1px solid #e0e0e0; border-radius: 8px; background: #f9fbfb; }
-        summary { padding: 12px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; list-style: none; }
-        summary::after { content: '▼'; font-size: 0.8em; color: #aaa; }
-        .details-content { padding: 15px; border-top: 1px solid #eee; font-size: 0.95em; }
+        details { margin-top: 15px; border: 1px solid #e0e0e0; border-radius: 8px; background: #f9fbfb; overflow: hidden; }
+        summary { padding: 12px 20px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; list-style: none; }
+        summary::after { content: '▼'; font-size: 0.8em; color: #aaa; transition: 0.3s; }
+        details[open] summary::after { transform: rotate(180deg); }
+        .details-content { padding: 20px; border-top: 1px solid #eee; font-size: 0.95em; }
         
-        .resource-box { margin-top: 10px; padding: 15px; background: #f4f7f6; border-radius: 10px; display: flex; flex-direction: column; gap: 12px; }
-        .link-item { display: flex; align-items: center; text-decoration: none; color: #444; font-weight: bold; font-size: 0.95em; }
-        .link-item:hover { color: #ffcc00; }
+        .resource-box { padding: 15px; background: #f4f7f6; border-radius: 10px; display: flex; flex-direction: column; gap: 12px; }
+        .link-item { display: flex; align-items: center; text-decoration: none; color: #444; font-weight: bold; }
+        .link-item:hover { color: #ff9900; }
 
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 10px; border-radius: 8px; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 10px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
         @media (max-width: 850px) {
             .main-layout { flex-direction: column; }
-            .sidebar-left { position: static; width: 100%; } /* 手機版取消凍結 */
-            .slideshow-container { height: 250px; }
+            .sidebar-left { position: static; width: 100%; }
+            .slideshow-container { height: 280px; }
         }
     </style>
 </head>
@@ -145,9 +175,9 @@
         <div class="project-card">
             <h3>📅 學習時間軸</h3>
             <div style="list-style: none; padding-left: 0;">
-                <div style="margin-bottom: 10px; border-left: 3px solid #ffcc00; padding-left: 10px;"><strong>高三：</strong> 蒙地卡羅模擬研究。</div>
-                <div style="margin-bottom: 10px; border-left: 3px solid #ddd; padding-left: 10px;"><strong>高二：</strong> 財金營隊。</div>
-                <div style="border-left: 3px solid #ddd; padding-left: 10px;"><strong>高一：</strong> 投資理財入門。</div>
+                <div style="margin-bottom: 12px; border-left: 4px solid #ffcc00; padding-left: 12px;"><strong>高三：</strong> 蒙地卡羅模擬研究。</div>
+                <div style="margin-bottom: 12px; border-left: 4px solid #ddd; padding-left: 12px;"><strong>高二：</strong> 財金營隊分析。</div>
+                <div style="border-left: 4px solid #ddd; padding-left: 12px;"><strong>高一：</strong> 投資理財基礎入門。</div>
             </div>
         </div>
     </aside>
@@ -155,14 +185,14 @@
     <main class="content-right">
         
         <div class="project-card">
-            <span class="project-tag">高三專題</span>
+            <span class="project-tag">高三專案</span>
             <h2>Python x Monte Carlo Simulation：股票趨勢與資產配置</h2>
-            <p>2026年2月，我在 YouTube 的推薦影片中首次接觸到蒙地卡羅模擬法，並因此對其是否能應用於股票價格預測產生濃厚興趣。我以其理論為基礎，運用python設立模型預估了台積電、Tesla、NVIDIA等多家知名公司的 2027 年股價，更結合現代投資組合理論（MPT）探討TSMC與Boeing、JPMorgan、Alphabet Inc.等組合之最佳資產配置。最終，我於 2026 年 3 月 19 日以全英文完成研究成果的上台報告。</p>
+            <p>2026年2月，運用 Python 模擬台積電等多家公司之 2027 年預期股價，並透過 MPT 現代投資組合理論尋找最佳風險回報比。</p>
             
             <div class="slideshow-container">
-                <div class="mySlides1"><img src="monte_carlo_chart1.jpg.png"></div>
-                <div class="mySlides1"><img src="monte_carlo_chart2.jpg.png"></div>
-                <div class="mySlides1"><img src="monte_carlo_chart3.jpg.png"></div>
+                <div class="mySlides1 fade"><img src="monte_carlo_chart1.jpg.png"></div>
+                <div class="mySlides1 fade"><img src="monte_carlo_chart2.jpg.png"></div>
+                <div class="mySlides1 fade"><img src="monte_carlo_chart3.jpg.png"></div>
                 <a class="prev" onclick="plusSlides(-1, 0)">&#10094;</a>
                 <a class="next" onclick="plusSlides(1, 0)">&#10095;</a>
             </div>
@@ -180,7 +210,7 @@
                         
                         <strong>📺 說明影片：</strong>
                         <div class="video-container">
-                            <iframe src="https://www.youtube.com/embed/你的影片ID1" frameborder="0" allowfullscreen></iframe>
+                            <iframe src="https://www.youtube.com/embed/你的影片ID1" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>
@@ -189,14 +219,13 @@
 
         <div class="project-card">
             <span class="project-tag">高一選修</span>
-            <h2>投資理財入門：實作模擬投資</h2>
-            <p>2024 年 3 月，我選修投資理財課程，並以模擬資金新台幣 500 萬元進行投資實作。在本次操作中，我配置了 台積電、京元電子、緯創 等科技類股，以及 長榮 等航運類股，進行跨產業資產配置。最終投資組合獲利 212,781 元。透過此次實作，我不僅加深了對股票基礎知識的理解，也對進出場時機判斷所依據的各類數據有了更深入的認識。並於 2024 年 5 月上台進行成果報告，分享投資策略與操作歷程。</p>
+            <h2>投資理財入門：上台報告與學習成果</h2>
+            <p>學習如何從基礎面分析企業價值，以下為針對台積電（TSMC）所進行的財務比率與股價趨勢分析：</p>
             
             <div class="slideshow-container">
-                <div class="mySlides2"><img src="TSMC_stock1.JPG"></div>
-                <div class="mySlides2"><img src="TSMC_stock2.JPG"></div>
-                <div class="mySlides2"><img src="TSMC_stock3.JPG"></div>
-                <div class="mySlides2"><img src="TSMC_stock4.png"></div>
+                <div class="mySlides2 fade"><img src="TSMC_stock1.jpg"></div>
+                <div class="mySlides2 fade"><img src="TSMC_stock2.jpg"></div>
+                <div class="mySlides2 fade"><img src="TSMC_stock3.jpg"></div>
                 <a class="prev" onclick="plusSlides(-1, 1)">&#10094;</a>
                 <a class="next" onclick="plusSlides(1, 1)">&#10095;</a>
             </div>
@@ -213,25 +242,30 @@
                         
                         <strong>📺 發表紀錄：</strong>
                         <div class="video-container">
-                            <iframe src="https://www.youtube.com/embed/你的影片ID2" frameborder="0" allowfullscreen></iframe>
+                            <iframe src="https://www.youtube.com/embed/你的影片ID2" allowfullscreen></iframe>
                         </div>
-                        <a href="https://youtu.be/你的影片ID2" class="link-item" target="_blank">🔗 在 YouTube 上觀看</a>
                     </div>
                 </div>
             </details>
         </div>
 
-        <div style="height: 600px;"></div> 
-
     </main>
 </div>
 
 <script>
-    let slideId = ["mySlides1", "mySlides2"];
+    // 儲存各組輪播圖的當前索引
     let slideIndex = [1, 1];
+    let slideId = ["mySlides1", "mySlides2"];
+
+    // 初始化顯示第一張
     showSlides(1, 0);
     showSlides(1, 1);
 
+    // 每 5 秒自動切換下一張
+    setInterval(function() { plusSlides(1, 0); }, 5000);
+    setInterval(function() { plusSlides(1, 1); }, 5000);
+
+    // 手動點擊控制
     function plusSlides(n, no) {
         showSlides(slideIndex[no] += n, no);
     }

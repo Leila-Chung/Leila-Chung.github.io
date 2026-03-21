@@ -19,7 +19,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        /* --- 返回首頁按鈕：固定在最左上角 --- */
+        /* 返回首頁：固定在最左上角 */
         .back-home { 
             position: fixed;
             top: 15px;
@@ -37,30 +37,31 @@
         }
         .back-home:hover { background: #ffcc00; color: #000; }
 
-        /* --- 核心版面配置 --- */
+        /* 核心佈局 */
         .main-layout {
             display: flex;
-            max-width: 1200px; 
+            max-width: 1240px; 
             margin: 30px auto;
             padding: 0 20px;
             gap: 30px; 
-            align-items: flex-start;
+            align-items: flex-start; /* 重要：確保 sticky 起作用 */
         }
 
-        /* 左側欄：動機在上，時間軸在下 */
+        /* --- 左側欄凍結效果 (Sticky Sidebar) --- */
         .sidebar-left {
             flex: 1; 
             display: flex;
             flex-direction: column;
             gap: 20px;
+            position: -webkit-sticky; /* 支援 Safari */
+            position: sticky;
+            top: 20px; /* 捲動到頂部時距離邊界 20px */
         }
 
-        /* 右側欄：主要資料區塊 */
         .content-right {
-            flex: 2; 
+            flex: 2.5; 
         }
 
-        /* --- 卡片與內容樣式 --- */
         .project-card {
             background: white;
             border-radius: 15px;
@@ -76,9 +77,6 @@
             font-weight: bold;
         }
 
-        .timeline-list { list-style: none; padding-left: 0; }
-        .timeline-item { margin-bottom: 15px; padding-left: 15px; border-left: 3px solid #ffcc00; }
-
         /* 輪播圖樣式 */
         .slideshow-container {
             max-width: 100%;
@@ -89,34 +87,41 @@
             background: #ebeeee;
             height: 350px;
         }
-        .mySlides { display: none; height: 100%; text-align: center; }
-        .mySlides img { width: 100%; height: 100%; object-fit: contain; background-color: #fff; }
-        .slide-fade { animation: slideFade 0.6s ease-in-out; }
-        @keyframes slideFade { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
-        .prev, .next { cursor: pointer; position: absolute; top: 50%; padding: 16px; margin-top: -22px; color: #ffcc00; font-weight: bold; font-size: 24px; transition: 0.3s; z-index: 2; text-decoration: none; }
+        .mySlides1, .mySlides2 { display: none; height: 100%; text-align: center; }
+        .mySlides1 img, .mySlides2 img { width: 100%; height: 100%; object-fit: contain; background-color: #fff; }
+        
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            padding: 16px;
+            margin-top: -22px;
+            color: #ffcc00;
+            font-weight: bold;
+            font-size: 24px;
+            transition: 0.3s;
+            z-index: 2;
+            text-decoration: none;
+        }
         .next { right: 0; }
-        .dot-container { text-align: center; margin-bottom: 15px; }
-        .dot { cursor: pointer; height: 10px; width: 10px; margin: 0 4px; background-color: #bbb; border-radius: 50%; display: inline-block; transition: 0.3s; }
-        .active, .dot:hover { background-color: #ffcc00; transform: scale(1.2); }
 
-        /* 下拉選單 */
+        /* 下拉選單與資源區 */
         details { margin-top: 15px; border: 1px solid #e0e0e0; border-radius: 8px; background: #f9fbfb; }
         summary { padding: 12px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; list-style: none; }
-        summary::after { content: '▼'; font-size: 0.8em; color: #aaa; transition: 0.3s; }
-        details[open] summary::after { transform: rotate(180deg); }
+        summary::after { content: '▼'; font-size: 0.8em; color: #aaa; }
         .details-content { padding: 15px; border-top: 1px solid #eee; font-size: 0.95em; }
         
-        .resource-box { margin-top: 15px; padding: 15px; background: #f4f7f6; border-radius: 10px; display: flex; flex-direction: column; gap: 10px; }
-        .link-item { display: flex; align-items: center; text-decoration: none; color: #444; font-weight: bold; }
-        
+        .resource-box { margin-top: 10px; padding: 15px; background: #f4f7f6; border-radius: 10px; display: flex; flex-direction: column; gap: 12px; }
+        .link-item { display: flex; align-items: center; text-decoration: none; color: #444; font-weight: bold; font-size: 0.95em; }
+        .link-item:hover { color: #ffcc00; }
+
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 10px; border-radius: 8px; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .photo-placeholder { width: 100%; height: 350px; background: #eee; margin: 15px 0; display: flex; justify-content: center; align-items: center; border-radius: 10px; overflow: hidden; }
-        .photo-placeholder img { width: 100%; height: 100%; object-fit: contain; }
 
         @media (max-width: 850px) {
             .main-layout { flex-direction: column; }
-            .back-home { position: absolute; top: 10px; left: 10px; }
+            .sidebar-left { position: static; width: 100%; } /* 手機版取消凍結 */
+            .slideshow-container { height: 250px; }
         }
     </style>
 </head>
@@ -139,16 +144,10 @@
 
         <div class="project-card">
             <h3>📅 學習時間軸</h3>
-            <div class="timeline-list">
-                <div class="timeline-item">
-                    <strong>高三：</strong> 專注於蒙地卡羅模擬與量化投資研究。
-                </div>
-                <div class="timeline-item" style="border-left-color: #ddd;">
-                    <strong>高二：</strong> 參與財金營隊，初步接觸基本面分析。
-                </div>
-                <div class="timeline-item" style="border-left-color: #ddd;">
-                    <strong>高一：</strong> 選修投資理財入門，建立正確理財觀念。
-                </div>
+            <div style="list-style: none; padding-left: 0;">
+                <div style="margin-bottom: 10px; border-left: 3px solid #ffcc00; padding-left: 10px;"><strong>高三：</strong> 蒙地卡羅模擬研究。</div>
+                <div style="margin-bottom: 10px; border-left: 3px solid #ddd; padding-left: 10px;"><strong>高二：</strong> 財金營隊。</div>
+                <div style="border-left: 3px solid #ddd; padding-left: 10px;"><strong>高一：</strong> 投資理財入門。</div>
             </div>
         </div>
     </aside>
@@ -161,34 +160,27 @@
             <p>2026年2月，我在 YouTube 的推薦影片中首次接觸到蒙地卡羅模擬法，並因此對其是否能應用於股票價格預測產生濃厚興趣。我以其理論為基礎，運用python設立模型預估了台積電、Tesla、NVIDIA等多家知名公司的 2027 年股價，更結合現代投資組合理論（MPT）探討TSMC與Boeing、JPMorgan、Alphabet Inc.等組合之最佳資產配置。最終，我於 2026 年 3 月 19 日以全英文完成研究成果的上台報告。</p>
             
             <div class="slideshow-container">
-                <div class="mySlides slide-fade"><img src="monte_carlo_chart1.jpg.png"></div>
-                <div class="mySlides slide-fade"><img src="monte_carlo_chart2.jpg.png"></div>
-                <div class="mySlides slide-fade"><img src="monte_carlo_chart3.jpg.png"></div>
-                <div class="mySlides slide-fade"><img src="monte_carlo_chart4.jpg.png"></div>
-                <div class="mySlides slide-fade"><img src="monte_carlo_chart5.jpg.png"></div>
-                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                <a class="next" onclick="plusSlides(1)">&#10095;</a>
-            </div>
-            
-            <div class="dot-container">
-                <span class="dot" onclick="currentSlide(1)"></span> 
-                <span class="dot" onclick="currentSlide(2)"></span> 
-                <span class="dot" onclick="currentSlide(3)"></span> 
-                <span class="dot" onclick="currentSlide(4)"></span> 
-                <span class="dot" onclick="currentSlide(5)"></span> 
+                <div class="mySlides1"><img src="monte_carlo_chart1.jpg.png"></div>
+                <div class="mySlides1"><img src="monte_carlo_chart2.jpg.png"></div>
+                <div class="mySlides1"><img src="monte_carlo_chart3.jpg.png"></div>
+                <a class="prev" onclick="plusSlides(-1, 0)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1, 0)">&#10095;</a>
             </div>
             
             <details>
-                <summary>查看相關資源</summary>
+                <summary>查看研究細節、簡報與影片</summary>
                 <div class="details-content">
                     <div class="resource-box">
-                        <strong>📄 相關檔案下載：</strong>
+                        <strong>📄 專案檔案：</strong>
                         <a href="monte_carlo_report.pdf" class="link-item" target="_blank">📁 完整研究報告 (PDF)</a>
-                        <a href="monte_carlo_code.zip" class="link-item">💻 Python 模擬原始碼 (ZIP)</a>
+                        <a href="monte_carlo_ppt.pptx" class="link-item" download>📊 專案展示簡報 (PPTX)</a>
+                        <a href="monte_carlo_code.ipynb" class="link-item" download>📓 Jupyter Notebook (.ipynb)</a>
+                        
                         <hr style="border:0; border-top:1px solid #ddd; margin:10px 0;">
-                        <strong>📺 專案說明影片：</strong>
+                        
+                        <strong>📺 說明影片：</strong>
                         <div class="video-container">
-                            <iframe src="https://www.youtube.com/embed/你的影片ID" frameborder="0" allowfullscreen></iframe>
+                            <iframe src="https://www.youtube.com/embed/你的影片ID1" frameborder="0" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>
@@ -197,79 +189,62 @@
 
         <div class="project-card">
             <span class="project-tag">高一選修</span>
-            <h2>投資理財入門：上台報告與學習成果</h2>
-            <p>初次接觸金融市場，學習基本面分析與個人財務規劃。</p>
-            <div class="photo-placeholder">
-                <img src="presentation_photo.jpg" alt="上台報告照片">
+            <h2>投資理財入門：實作模擬投資</h2>
+            <p>2024 年 3 月，我選修投資理財課程，並以模擬資金新台幣 500 萬元進行投資實作。在本次操作中，我配置了 台積電、京元電子、緯創 等科技類股，以及 長榮 等航運類股，進行跨產業資產配置。最終投資組合獲利 212,781 元。透過此次實作，我不僅加深了對股票基礎知識的理解，也對進出場時機判斷所依據的各類數據有了更深入的認識。並於 2024 年 5 月上台進行成果報告，分享投資策略與操作歷程。</p>
+            
+            <div class="slideshow-container">
+                <div class="mySlides2"><img src="TSMC_stock1.jpg"></div>
+                <div class="mySlides2"><img src="TSMC_stock2.jpg"></div>
+                <div class="mySlides2"><img src="TSMC_stock3.jpg"></div>
+                <div class="mySlides2"><img src="TSMC_stock4.jpg"></div>
+                <a class="prev" onclick="plusSlides(-1, 1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1, 1)">&#10095;</a>
             </div>
+
             <details>
-                <summary>查看學習心得與報告檔案</summary>
+                <summary>查看報告檔案、簡報與影片</summary>
                 <div class="details-content">
-                    <p><strong>心得：</strong> 向同學解釋投資邏輯時，大幅提升了我的溝通能力。</p>
                     <div class="resource-box">
-                        <a href="investment_slides.pdf" class="link-item" target="_blank">📊 上台報告簡報 (PDF)</a>
-                        <a href="https://youtu.be/你的影片ID" class="link-item" target="_blank">🔗 觀看上台發表紀錄影片</a>
+                        <strong>📄 成果檔案：</strong>
+                        <a href="tsmc_analysis_report.pdf" class="link-item" target="_blank">📂 TSMC 分析報告 (PDF)</a>
+                        <a href="investment_presentation.pptx" class="link-item" download>📊 上台報告簡報 (PPTX)</a>
+                        
+                        <hr style="border:0; border-top:1px solid #ddd; margin:10px 0;">
+                        
+                        <strong>📺 發表紀錄：</strong>
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/你的影片ID2" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                        <a href="https://youtu.be/你的影片ID2" class="link-item" target="_blank">🔗 在 YouTube 上觀看</a>
                     </div>
                 </div>
             </details>
         </div>
 
+        <div style="height: 600px;"></div> 
+
     </main>
 </div>
 
 <script>
-    let slideIndex = 0;
-    let slideTimer;
-    showSlides();
+    let slideId = ["mySlides1", "mySlides2"];
+    let slideIndex = [1, 1];
+    showSlides(1, 0);
+    showSlides(1, 1);
 
-    function showSlides() {
+    function plusSlides(n, no) {
+        showSlides(slideIndex[no] += n, no);
+    }
+
+    function showSlides(n, no) {
         let i;
-        let slides = document.getElementsByClassName("mySlides");
-        let dots = document.getElementsByClassName("dot");
-        for (i = 0; i < slides.length; i++) { 
-            slides[i].style.display = "none"; 
-            slides[i].classList.remove("slide-fade");
+        let x = document.getElementsByClassName(slideId[no]);
+        if (n > x.length) {slideIndex[no] = 1}    
+        if (n < 1) {slideIndex[no] = x.length}
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";  
         }
-        slideIndex++;
-        if (slideIndex > slides.length) {slideIndex = 1}    
-        for (i = 0; i < dots.length; i++) { dots[i].className = dots[i].className.replace(" active", ""); }
-        if(slides[slideIndex-1]) {
-            slides[slideIndex-1].style.display = "block";  
-            void slides[slideIndex-1].offsetWidth; 
-            slides[slideIndex-1].classList.add("slide-fade");
-            dots[slideIndex-1].className += " active";
-        }
-        slideTimer = setTimeout(showSlides, 5000); 
-    }
-
-    function plusSlides(n) {
-        clearTimeout(slideTimer);
-        slideIndex += n;
-        showSlidesManual();
-    }
-
-    function currentSlide(n) {
-        clearTimeout(slideTimer);
-        slideIndex = n;
-        showSlidesManual();
-    }
-
-    function showSlidesManual() {
-        let i;
-        let slides = document.getElementsByClassName("mySlides");
-        let dots = document.getElementsByClassName("dot");
-        if (slideIndex > slides.length) {slideIndex = 1}    
-        if (slideIndex < 1) {slideIndex = slides.length}
-        for (i = 0; i < slides.length; i++) { 
-            slides[i].style.display = "none"; 
-            slides[i].classList.remove("slide-fade");
-        }
-        for (i = 0; i < dots.length; i++) { dots[i].className = dots[i].className.replace(" active", ""); }
-        slides[slideIndex-1].style.display = "block";  
-        void slides[slideIndex-1].offsetWidth; 
-        slides[slideIndex-1].classList.add("slide-fade");
-        dots[slideIndex-1].className += " active";
-        slideTimer = setTimeout(showSlides, 5000);
+        x[slideIndex[no]-1].style.display = "block";  
     }
 </script>
 

@@ -3,27 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>鍾佳言的個人網站</title>
+    <title>鍾佳言的個人網站 | 跨領域學習者</title>
+    <!-- 引入 Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #5a7d9a;
+            --accent-finance: #ffebac;
+            --accent-tech: #a3cfff;
+            --accent-humanity: #bde89f;
+            --accent-art: #ffccd1;
+            --accent-science: #e0c3fc;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: "Microsoft JhengHei", -apple-system, sans-serif;
-            line-height: 1.7;
+            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.8;
             color: #444;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%);
+            background: var(--bg-gradient);
+            background-attachment: fixed;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* 🌍 全螢幕橫幅 (純白底色) */
+        /* 🟢 頂部導覽欄 */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { font-weight: 900; color: var(--primary-color); font-size: 1.2rem; letter-spacing: 1px; }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover { color: var(--primary-color); }
+
+        /* 🌍 全螢幕橫幅 */
         .header-wrapper {
             width: 100%;
             background: #ffffff; 
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             margin-bottom: 60px;
             display: flex;
             justify-content: center;
             overflow: hidden;
+            padding-top: 60px;
         }
 
         header {
@@ -31,39 +84,34 @@
             max-width: 1400px;
             display: flex;
             align-items: center;
-            height: 600px; /* 橫幅高度 */
+            height: 600px;
             position: relative;
         }
 
-        /* 文字內容區 */
         .header-content {
             flex: 1;
             padding: 0 80px;
             z-index: 10;
-            position: relative;
         }
 
-        /* 照片區 (漸變淡出) */
-        .header-photo {
+        .header-photo-main {
             flex: 1.8;
             height: 100%;
             display: flex;
             justify-content: flex-end;
         }
 
-        .header-photo img {
+        .header-photo-main img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border: none;
-            /* 💡 CSS 遮罩：實現從左到右由透明變清晰 */
-            -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 25%, rgba(0,0,0,1) 65%, rgba(0,0,0,1) 100%);
-            mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 25%, rgba(0,0,0,1) 65%, rgba(0,0,0,1) 100%);
+            -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 15%, rgba(0,0,0,1) 65%, rgba(0,0,0,1) 100%);
+            mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 15%, rgba(0,0,0,1) 65%, rgba(0,0,0,1) 100%);
         }
 
         h1 {
             color: #1a1a1a;
-            font-size: 3.5em;
+            font-size: clamp(2.5rem, 5vw, 4rem);
             margin-bottom: 15px;
             letter-spacing: 4px;
             font-weight: 900;
@@ -71,142 +119,300 @@
 
         .tagline {
             color: #555;
-            font-size: 1.2em;
+            font-size: 1.1em;
             margin-bottom: 40px;
-            border-left: 4px solid #5a7d9a;
+            border-left: 4px solid var(--primary-color);
             padding-left: 20px;
         }
 
-        .links a {
-            color: #5a7d9a;
+        .cta-links a {
+            display: inline-block;
+            color: var(--primary-color);
             text-decoration: none;
             padding: 10px 25px;
-            border: 2px solid #5a7d9a;
+            border: 2px solid var(--primary-color);
             border-radius: 30px;
             font-weight: bold;
             margin-right: 10px;
-            transition: 0.3s;
+            margin-bottom: 10px;
+            transition: var(--transition);
         }
 
-        .links a:hover {
-            background: #5a7d9a;
+        .cta-links a:hover {
+            background: var(--primary-color);
             color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(90, 125, 154, 0.3);
         }
 
+        /* 📦 容器區塊 */
         .container {
-            max-width: 900px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
         .section {
-            background: rgba(255, 255, 255, 0.85);
+            background: var(--glass-bg);
             backdrop-filter: blur(15px);
-            border-radius: 25px;
-            padding: 40px;
-            margin-bottom: 40px;
+            border-radius: 30px;
+            padding: 50px;
+            margin-bottom: 60px;
             border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
         }
 
-        h2 { color: #5a7d9a; margin-bottom: 30px; font-size: 1.7em; }
-
-        .navigation-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
+        .section.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .nav-circle {
-            text-decoration: none;
-            color: #444;
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            font-weight: bold;
-            border: 1px solid #eee;
+        h2 { 
+            color: var(--primary-color); 
+            margin-bottom: 40px; 
+            font-size: 1.8em;
             display: flex;
-            flex-direction: column;
             align-items: center;
             gap: 15px;
-            transition: 0.3s;
         }
 
-        .nav-circle:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        h2::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: rgba(0,0,0,0.1);
+        }
 
-        .finance-tag { border-top: 6px solid #ffebac; }
-        .tech-tag { border-top: 6px solid #a3cfff; }
-        .humanity-tag { border-top: 6px solid #bde89f; }
-        .art-tag { border-top: 6px solid #ffccd1; }
+        /* 🌀 核心歷程：環繞排版設計 */
+        .journey-orbit-container {
+            position: relative;
+            height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+        }
 
-        footer { text-align: center; color: #999; margin: 60px 0; }
+        /* 中央照片 */
+        .core-photo-wrapper {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            z-index: 5;
+        }
 
+        .core-photo {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 8px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            animation: pulse 4s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+            50% { transform: scale(1.03); box-shadow: 0 15px 40px rgba(90, 125, 154, 0.2); }
+        }
+
+        /* 環繞圓形卡片 */
+        .orbit-card {
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: #444;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            border: 1px solid #eee;
+            transition: var(--transition);
+            z-index: 6;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .orbit-card:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .orbit-card .icon { font-size: 2em; margin-bottom: 5px; }
+        .orbit-card span { font-weight: bold; font-size: 0.95rem; }
+        .orbit-card .small-desc { font-size: 0.7rem; color: #888; font-weight: normal; margin-top: 3px; }
+
+        /* 定位五大區塊 (利用 CSS 變數或手動調整角度) */
+        /* 角度分配: 72度一個 */
+        .pos-1 { top: 0; transform: translateY(-20px); border-top: 6px solid var(--accent-science); }
+        .pos-2 { top: 120px; right: 20px; border-top: 6px solid var(--accent-finance); }
+        .pos-3 { bottom: 20px; right: 120px; border-top: 6px solid var(--accent-tech); }
+        .pos-4 { bottom: 20px; left: 120px; border-top: 6px solid var(--accent-humanity); }
+        .pos-5 { top: 120px; left: 20px; border-top: 6px solid var(--accent-art); }
+
+        footer { text-align: center; color: #999; margin: 80px 0; padding-bottom: 40px; }
+
+        /* 📱 手機版自動轉換為格網 */
         @media (max-width: 900px) {
-            header { height: auto; flex-direction: column-reverse; }
-            .header-photo { width: 100%; height: 350px; }
-            .header-photo img {
-                -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
-                mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+            .journey-orbit-container {
+                height: auto;
+                flex-direction: column;
+                gap: 40px;
             }
-            .header-content { text-align: center; padding: 40px 20px; }
-            h1 { font-size: 2.8em; }
-            .navigation-grid { grid-template-columns: 1fr; }
+            .orbit-card {
+                position: static;
+                width: 100%;
+                height: auto;
+                border-radius: 20px;
+                flex-direction: row;
+                justify-content: flex-start;
+                padding: 20px;
+                gap: 20px;
+                transform: none !important;
+            }
+            .orbit-card .icon { margin-bottom: 0; font-size: 1.8em; }
+            .orbit-card .text-group { text-align: left; }
+            .pos-1, .pos-2, .pos-3, .pos-4, .pos-5 { border-top: none; border-left: 6px solid; }
+            .pos-1 { border-left-color: var(--accent-science); }
+            .pos-2 { border-left-color: var(--accent-finance); }
+            .pos-3 { border-left-color: var(--accent-tech); }
+            .pos-4 { border-left-color: var(--accent-humanity); }
+            .pos-5 { border-left-color: var(--accent-art); }
         }
     </style>
 </head>
 <body>
 
+    <nav>
+        <div class="nav-container">
+            <div class="logo">CHUNG JIA YAN</div>
+            <div class="nav-links">
+                <a href="#about">關於我</a>
+                <a href="#journey">核心歷程</a>
+                <a href="#science">科學研究</a>
+                <a href="#contact">聯絡方式</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="header-wrapper">
         <header>
             <div class="header-content">
                 <h1>鍾佳言</h1>
-                <p class="tagline">跨領域學習者<br>資安研究 | 人文探索</p>
-                <div class="links">
-                    <a href="mailto:your@email.com">Email</a>
+                <p class="tagline">跨領域學習者<br>將科學、科技與人文精神融會貫通</p>
+                <div class="cta-links">
+                    <a href="mailto:your@email.com">Email Me</a>
                     <a href="#">GitHub</a>
-                    <a href="#">IG</a>
+                    <a href="#">Instagram</a>
                 </div>
             </div>
-            <div class="header-photo">
-                <img src="profile.jpg" alt="鍾佳言的個人照片">
+            <div class="header-photo-main">
+                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?fit=crop&w=1000&q=80" alt="鍾佳言的個人照片">
             </div>
         </header>
     </div>
 
     <div class="container">
-        <section class="section">
-            <h2>👤 About Me</h2>
+        <section class="section" id="about">
+            <h2>👤 關於我 | About Me</h2>
             <p>你好，我是鍾佳言。目前專注於跨領域的學習與整合，我相信不同學科間的碰撞能產生最有趣的火花。</p>
-            <p>包含了我對財金、資訊、人文與藝術的熱情。</p>
+            <p style="margin-top: 15px;">
+                在快速變動的數位時代，我試圖在<strong>科學探究的嚴謹</strong>、<strong>金融市場的理性</strong>、<strong>資安研究的攻防</strong>中磨練邏輯，並在<strong>人文藝術的感性</strong>中保持對世界的同理心。
+            </p>
         </section>
 
-        <section class="section">
-            <h2>核心歷程 (點擊探索)</h2>
-            <div class="navigation-grid">
-                <a href="finance.html" class="nav-circle finance-tag">
-                    <span style="font-size: 2em;">💰</span>
-                    <span>財金領域</span>
+        <!-- 🌀 核心歷程：環繞排版區塊 -->
+        <section class="section" id="journey">
+            <h2>💡 核心歷程 | Core Journey</h2>
+            <div class="journey-orbit-container">
+                <!-- 中央核心照片 -->
+                <div class="core-photo-wrapper">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=400&h=400&q=80" alt="鍾佳言" class="core-photo">
+                </div>
+
+                <!-- 環繞項目 -->
+                <a href="#science" class="orbit-card pos-1">
+                    <span class="icon">🧪</span>
+                    <div class="text-group">
+                        <span>科學研究</span>
+                        <div class="small-desc">實驗探究與數據分析</div>
+                    </div>
                 </a>
-                <a href="tech.html" class="nav-circle tech-tag">
-                    <span style="font-size: 2em;">💻</span>
-                    <span>資訊科技</span>
+                <a href="#finance" class="orbit-card pos-2">
+                    <span class="icon">💰</span>
+                    <div class="text-group">
+                        <span>財金領域</span>
+                        <div class="small-desc">量化分析與市場洞察</div>
+                    </div>
                 </a>
-                <a href="humanity.html" class="nav-circle humanity-tag">
-                    <span style="font-size: 2em;">📖</span>
+                <a href="#tech" class="orbit-card pos-3">
+                    <span class="icon">💻</span>
+                    <div class="text-group">
+                        <span>資訊科技</span>
+                        <div class="small-desc">資安攻防與軟體開發</div>
+                    </div>
+                </a>
+                <a href="#humanity" class="orbit-card pos-4">
+                    <span class="icon">📖</span>
                     <span>人文社會</span>
+                    <div class="small-desc">社會觀察與寫作</div>
                 </a>
-                <a href="art.html" class="nav-circle art-tag">
-                    <span style="font-size: 2em;">🎨</span>
+                <a href="#art" class="orbit-card pos-5">
+                    <span class="icon">🎨</span>
                     <span>藝術創作</span>
+                    <div class="small-desc">數位美學與視覺設計</div>
                 </a>
             </div>
         </section>
 
-        <footer>
-            <p>© 2026 鍾佳言. Built with ❤️</p>
+        <section class="section" id="science">
+            <h2>🧪 科學研究 | Scientific Research</h2>
+            <p>在科學研究的過程中，我學習如何透過觀察提出假說，並設計嚴謹的實驗來驗證想法。我對自然科學的基礎探究充滿好奇心，尤其是如何利用數據建模來解釋複雜的現象。</p>
+        </section>
+
+        <section class="section" id="tech">
+            <h2>🛠️ 技術專長</h2>
+            <p>目前投入於資安研究，包含 Web 安全與網路協議分析。擅長利用程式自動化處理繁瑣任務，並持續探索 AI 在資訊安全領域的應用潛力。</p>
+        </section>
+
+        <footer id="contact">
+            <p>© 2026 鍾佳言. 跨域探索，永不止步。</p>
         </footer>
     </div>
 
+    <script>
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

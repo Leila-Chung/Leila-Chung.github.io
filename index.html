@@ -3,415 +3,332 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>鍾佳言的個人網站 | 跨領域學習者</title>
+    <title>鍾佳言 | 跨領域探索者</title>
+    
     <!-- 引入 Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;700&family=Noto+Serif+TC:wght@200;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --primary-color: #5a7d9a;
-            --accent-finance: #ffebac;
-            --accent-tech: #a3cfff;
-            --accent-humanity: #bde89f;
-            --accent-art: #ffccd1;
-            --accent-science: #e0c3fc;
-            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%);
-            --glass-bg: rgba(255, 255, 255, 0.85);
-            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --bg-light: #fdfdfd;
+            --primary-gold: #b3935a;
+            --gold-glow: rgba(179, 147, 90, 0.15);
+            --accent-tech: #d0e7ff;
+            --accent-science: #f0e6ff;
+            --accent-art: #ffe5e8;
+            --text-main: #1a1a1a;
+            --text-muted: #666666;
+            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+            --transition-slow: all 1.2s var(--ease-out-expo);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
         body {
-            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.8;
-            color: #444;
-            background: var(--bg-gradient);
-            background-attachment: fixed;
-            min-height: 100vh;
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
             overflow-x: hidden;
+            line-height: 1.8;
         }
 
-        /* 🟢 頂部導覽欄 */
+        /* 🪐 動態背景 */
+        .bg-blobs {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            filter: blur(80px);
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            animation: move 20s infinite alternate;
+        }
+        .blob-1 { width: 600px; height: 600px; background: var(--accent-tech); top: -10%; left: -10%; }
+        .blob-2 { width: 500px; height: 500px; background: var(--accent-science); bottom: 10%; right: -5%; }
+        .blob-3 { width: 400px; height: 400px; background: var(--accent-art); bottom: -10%; left: 20%; }
+
+        @keyframes move {
+            from { transform: translate(0, 0) rotate(0deg); }
+            to { transform: translate(150px, 80px) rotate(60deg); }
+        }
+
+        /* 導覽列 */
         nav {
             position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(15px);
+            top: 0; width: 100%;
             z-index: 1000;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            transition: var(--transition);
-        }
-
-        .nav-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
+            padding: 30px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(10px);
         }
 
-        .logo { font-weight: 900; color: var(--primary-color); font-size: 1.2rem; letter-spacing: 1px; }
+        .logo { 
+            font-family: 'Playfair Display', serif;
+            font-weight: 700; font-size: 1.1rem; letter-spacing: 4px; color: var(--text-main);
+        }
 
         .nav-links a {
-            text-decoration: none;
-            color: #666;
-            margin-left: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: var(--transition);
+            text-decoration: none; color: var(--text-main); margin-left: 35px;
+            font-size: 0.7rem; font-weight: 400; letter-spacing: 2px; text-transform: uppercase;
+            opacity: 0.5; transition: 0.4s;
         }
+        .nav-links a:hover { opacity: 1; color: var(--primary-gold); }
 
-        .nav-links a:hover { color: var(--primary-color); }
-
-        /* 🌍 全螢幕橫幅 */
-        .header-wrapper {
-            width: 100%;
-            background: #ffffff; 
-            margin-bottom: 60px;
-            display: flex;
-            justify-content: center;
-            overflow: hidden;
-            padding-top: 60px;
-        }
-
+        /* 🌍 主視覺區 */
         header {
-            width: 100%;
-            max-width: 1400px;
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            height: 600px;
-            position: relative;
+            justify-content: space-between;
+            padding: 0 0 0 8%;
+            max-width: 100vw;
+            margin: 0;
+            gap: 0;
+            overflow: hidden;
         }
 
         .header-content {
             flex: 1;
-            padding: 0 80px;
+            text-align: left;
+            opacity: 0;
+            transform: translateX(-40px);
+            animation: slideIn 1.5s var(--ease-out-expo) forwards;
             z-index: 10;
+            padding-right: 50px;
         }
 
-        .header-photo-main {
-            flex: 1.8;
-            height: 100%;
+        .header-image-container {
+            flex: 1.2;
+            height: 100vh;
             display: flex;
             justify-content: flex-end;
+            opacity: 0;
+            transform: translateX(40px);
+            animation: slideIn 1.5s var(--ease-out-expo) 0.2s forwards;
+            position: relative;
         }
 
-        .header-photo-main img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 15%, rgba(0,0,0,1) 65%, rgba(0,0,0,1) 100%);
-            mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 15%, rgba(0,0,0,1) 65%, rgba(0,0,0,1) 100%);
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateX(0); }
         }
+
+        .tagline-container { margin-bottom: 25px; }
+        .tagline-en {
+            display: block; font-size: 0.8rem; font-weight: 300; letter-spacing: 6px;
+            color: var(--primary-gold); text-transform: uppercase; margin-bottom: 8px;
+        }
+        .tagline-zh { font-size: 1.1rem; color: var(--text-muted); font-weight: 300; letter-spacing: 2px; }
 
         h1 {
-            color: #1a1a1a;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            margin-bottom: 15px;
-            letter-spacing: 4px;
-            font-weight: 900;
-        }
-
-        .tagline {
-            color: #555;
-            font-size: 1.1em;
+            font-family: 'Noto Serif TC', serif;
+            font-size: clamp(3.5rem, 8vw, 6.5rem);
+            font-weight: 200; line-height: 1.1;
+            letter-spacing: 0.1em;
             margin-bottom: 40px;
-            border-left: 4px solid var(--primary-color);
-            padding-left: 20px;
         }
 
-        .cta-links a {
-            display: inline-block;
-            color: var(--primary-color);
-            text-decoration: none;
-            padding: 10px 25px;
-            border: 2px solid var(--primary-color);
-            border-radius: 30px;
-            font-weight: bold;
-            margin-right: 10px;
-            margin-bottom: 10px;
-            transition: var(--transition);
+        .hero-description {
+            color: var(--text-muted); font-weight: 300; letter-spacing: 1px;
+            max-width: 480px; font-size: 1.05rem;
+            border-left: 1.5px solid var(--primary-gold); padding-left: 25px; line-height: 2.2;
         }
 
-        .cta-links a:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(90, 125, 154, 0.3);
+        .hero-img-wrapper { position: relative; width: 100%; height: 100%; overflow: hidden; }
+        .hero-img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-img-wrapper::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to right, var(--bg-light) 0%, transparent 40%, transparent 100%);
+            z-index: 2;
         }
 
-        /* 📦 容器區塊 */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section {
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border-radius: 30px;
-            padding: 50px;
-            margin-bottom: 60px;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
-
-        .section.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        h2 { 
-            color: var(--primary-color); 
-            margin-bottom: 40px; 
-            font-size: 1.8em;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        h2::after {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background: rgba(0,0,0,0.1);
-        }
-
-        /* 🌀 核心歷程：環繞排版設計 */
+        /* 🌀 核心歷程 */
+        .journey-section { padding: 160px 0; background: rgba(255,255,255,0.4); }
         .journey-orbit-container {
-            position: relative;
-            height: 600px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 40px 0;
+            position: relative; height: 750px; display: flex; justify-content: center;
+            align-items: center; max-width: 1200px; margin: 0 auto;
         }
 
-        /* 中央照片 */
+        .orbit-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        .circuit-line {
+            fill: none; stroke: var(--primary-gold); stroke-width: 1;
+            stroke-dasharray: 1000; stroke-dashoffset: 1000; opacity: 0;
+        }
+        .show .circuit-line { animation: drawLine 2s 1s var(--ease-out-expo) forwards; }
+        @keyframes drawLine { 0% { opacity: 0; stroke-dashoffset: 1000; } 100% { opacity: 0.15; stroke-dashoffset: 0; } }
+
         .core-photo-wrapper {
-            position: relative;
-            width: 220px;
-            height: 220px;
-            z-index: 5;
+            position: relative; width: 250px; height: 250px; z-index: 10;
+            opacity: 0; border-radius: 50%; padding: 10px; background: white;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.06); overflow: hidden;
         }
+        .show .core-photo-wrapper { animation: popIn 1.5s var(--ease-out-expo) forwards; }
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
 
-        .core-photo {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 8px solid white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            animation: pulse 4s infinite ease-in-out;
-        }
+        .core-photo { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-            50% { transform: scale(1.03); box-shadow: 0 15px 40px rgba(90, 125, 154, 0.2); }
-        }
-
-        /* 環繞圓形卡片 */
         .orbit-card {
-            position: absolute;
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            background: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            color: #444;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-            border: 1px solid #eee;
-            transition: var(--transition);
-            z-index: 6;
-            padding: 15px;
-            text-align: center;
+            position: absolute; width: 160px; height: 160px; border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px);
+            border: 1px solid rgba(179, 147, 90, 0.2); display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-decoration: none;
+            color: var(--text-main); opacity: 0; transition: all 0.5s var(--ease-out-expo);
+            z-index: 5; text-align: center;
         }
+        .show .orbit-card { animation: cardFade 0.8s forwards; }
+        .show .pos-1 { animation-delay: 1.8s; top: 0; }
+        .show .pos-2 { animation-delay: 2.0s; top: 20%; right: 5%; }
+        .show .pos-3 { animation-delay: 2.2s; bottom: 8%; right: 15%; }
+        .show .pos-4 { animation-delay: 2.4s; bottom: 8%; left: 15%; }
+        .show .pos-5 { animation-delay: 2.6s; top: 20%; left: 5%; }
+        @keyframes cardFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .orbit-card:hover {
-            transform: scale(1.1) translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        .orbit-card:hover { border-color: var(--primary-gold); box-shadow: 0 20px 40px var(--gold-glow); transform: translateY(-8px) scale(1.03); background: white; }
+        .orbit-card svg { width: 28px; height: 28px; margin-bottom: 10px; stroke: var(--primary-gold); stroke-width: 1.2; fill: none; }
+        .orbit-card .label-zh { font-family: 'Noto Serif TC', serif; font-size: 0.9rem; letter-spacing: 2px; font-weight: 500; }
+        .orbit-card .label-en { font-size: 0.6rem; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 3px; opacity: 0.7; }
+
+        /* 📜 關於自我 */
+        .content-section {
+            max-width: 900px; margin: 0 auto; padding: 160px 8%; text-align: left;
+            opacity: 0; transform: translateY(40px); transition: var(--transition-slow);
         }
+        .content-section.show { opacity: 1; transform: translateY(0); }
+        .content-section h2 { font-family: 'Noto Serif TC', serif; font-size: 2.5rem; margin-bottom: 40px; letter-spacing: 0.3em; color: var(--primary-gold); }
+        .content-section h2::after { content: ''; display: block; width: 60px; height: 2px; background: var(--primary-gold); margin-top: 15px; opacity: 0.6; }
+        .content-section p { font-family: 'Noto Serif TC', serif; font-size: 1.1rem; line-height: 2.6; color: var(--text-muted); max-width: 720px; text-align: justify; }
 
-        .orbit-card .icon { font-size: 2em; margin-bottom: 5px; }
-        .orbit-card span { font-weight: bold; font-size: 0.95rem; }
-        .orbit-card .small-desc { font-size: 0.7rem; color: #888; font-weight: normal; margin-top: 3px; }
+        footer { padding: 80px; text-align: center; font-size: 0.75rem; letter-spacing: 5px; color: var(--text-muted); opacity: 0.5; }
 
-        /* 定位五大區塊 (利用 CSS 變數或手動調整角度) */
-        /* 角度分配: 72度一個 */
-        .pos-1 { top: 0; transform: translateY(-20px); border-top: 6px solid var(--accent-science); }
-        .pos-2 { top: 120px; right: 20px; border-top: 6px solid var(--accent-finance); }
-        .pos-3 { bottom: 20px; right: 120px; border-top: 6px solid var(--accent-tech); }
-        .pos-4 { bottom: 20px; left: 120px; border-top: 6px solid var(--accent-humanity); }
-        .pos-5 { top: 120px; left: 20px; border-top: 6px solid var(--accent-art); }
-
-        footer { text-align: center; color: #999; margin: 80px 0; padding-bottom: 40px; }
-
-        /* 📱 手機版自動轉換為格網 */
-        @media (max-width: 900px) {
-            .journey-orbit-container {
-                height: auto;
-                flex-direction: column;
-                gap: 40px;
-            }
-            .orbit-card {
-                position: static;
-                width: 100%;
-                height: auto;
-                border-radius: 20px;
-                flex-direction: row;
-                justify-content: flex-start;
-                padding: 20px;
-                gap: 20px;
-                transform: none !important;
-            }
-            .orbit-card .icon { margin-bottom: 0; font-size: 1.8em; }
-            .orbit-card .text-group { text-align: left; }
-            .pos-1, .pos-2, .pos-3, .pos-4, .pos-5 { border-top: none; border-left: 6px solid; }
-            .pos-1 { border-left-color: var(--accent-science); }
-            .pos-2 { border-left-color: var(--accent-finance); }
-            .pos-3 { border-left-color: var(--accent-tech); }
-            .pos-4 { border-left-color: var(--accent-humanity); }
-            .pos-5 { border-left-color: var(--accent-art); }
+        @media (max-width: 1100px) {
+            header { flex-direction: column; text-align: center; padding: 140px 8% 0; }
+            .header-content { text-align: center; padding-right: 0; margin-bottom: 60px; }
+            .header-image-container { width: 100%; height: 50vh; justify-content: center; }
+            .hero-img-wrapper::after { background: linear-gradient(to bottom, var(--bg-light) 0%, transparent 20%, transparent 80%, var(--bg-light) 100%); }
+            .hero-description { margin: 0 auto; border-left: none; border-top: 1.5px solid var(--primary-gold); padding: 25px 0 0 0; }
+        }
+        @media (max-width: 768px) {
+            .orbit-svg { display: none; }
+            .journey-orbit-container { height: auto; flex-direction: column; gap: 20px; padding: 40px 0; }
+            .orbit-card { position: static; width: 90%; height: 90px; flex-direction: row; border-radius: 15px; padding: 0 30px; justify-content: flex-start; }
+            .orbit-card svg { margin-bottom: 0; margin-right: 20px; }
         }
     </style>
 </head>
 <body>
 
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
     <nav>
-        <div class="nav-container">
-            <div class="logo">CHUNG JIA YAN</div>
-            <div class="nav-links">
-                <a href="#about">關於我</a>
-                <a href="#journey">核心歷程</a>
-                <a href="#science">科學研究</a>
-                <a href="#contact">聯絡方式</a>
-            </div>
+        <div class="logo">CHUNG JIA YAN</div>
+        <div class="nav-links">
+            <a href="#journey">Journey</a>
+            <a href="#about">About</a>
         </div>
     </nav>
 
-    <div class="header-wrapper">
-        <header>
-            <div class="header-content">
-                <h1>鍾佳言</h1>
-                <p class="tagline">跨領域學習者<br>將科學、科技與人文精神融會貫通</p>
-                <div class="cta-links">
-                    <a href="mailto:your@email.com">Email Me</a>
-                    <a href="#">GitHub</a>
-                    <a href="#">Instagram</a>
-                </div>
+    <header>
+        <div class="header-content">
+            <div class="tagline-container">
+                <span class="tagline-en">Convergence of Reason and Art</span>
+                <span class="tagline-zh">跨領域學習者 ‧ 多維度探索者</span>
             </div>
-            <div class="header-photo-main">
-                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?fit=crop&w=1000&q=80" alt="鍾佳言的個人照片">
+            <h1>鍾佳言</h1>
+            <div class="hero-description">
+                在理性的邏輯中，編織感性的敘事。<br>
+                從科學探究到藝術創作，於交匯處找尋自我實踐的可能。
             </div>
-        </header>
+        </div>
+
+        <div class="header-image-container">
+            <div class="hero-img-wrapper">
+                <!-- 更新主視覺圖片路徑與描述 -->
+                <img src="louvre.jpg" alt="鍾佳言個人主視覺照片" class="hero-img">
+            </div>
+        </div>
+    </header>
+
+    <div class="journey-section section" id="journey">
+        <div class="journey-orbit-container">
+            <!-- 金色電路連接線 SVG -->
+            <svg class="orbit-svg" viewBox="0 0 1000 750">
+                <path class="circuit-line" d="M 500 375 L 500 80" /> 
+                <path class="circuit-line" d="M 500 375 L 850 250" /> 
+                <path class="circuit-line" d="M 500 375 L 750 630" /> 
+                <path class="circuit-line" d="M 500 375 L 250 630" /> 
+                <path class="circuit-line" d="M 500 375 L 150 250" /> 
+            </svg>
+
+            <!-- 五大區塊中心核心照片 -->
+            <div class="core-photo-wrapper">
+                <!-- 更新核心圖片路徑與描述 -->
+                <img src="louvre.jpg" alt="鍾佳言個人核心肖像" class="core-photo">
+            </div>
+
+            <!-- 領域卡片 -->
+            <a href="#" class="orbit-card pos-1">
+                <svg viewBox="0 0 24 24"><path d="M4.5 3h15M4.5 21h15M6 3v18M18 3v18M6 7h12M6 12h12M6 17h12"/></svg>
+                <div class="label-group"><span class="label-zh">科學研究</span><br><span class="label-en">Science</span></div>
+            </a>
+            <a href="#" class="orbit-card pos-2">
+                <svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <div class="label-group"><span class="label-zh">財金領域</span><br><span class="label-en">Finance</span></div>
+            </a>
+            <a href="#" class="orbit-card pos-3">
+                <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                <div class="label-group"><span class="label-zh">資訊科技</span><br><span class="label-en">Technology</span></div>
+            </a>
+            <a href="#" class="orbit-card pos-4">
+                <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15z"/></svg>
+                <div class="label-group"><span class="label-zh">人文社會</span><br><span class="label-en">Humanities</span></div>
+            </a>
+            <a href="#" class="orbit-card pos-5">
+                <svg viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.5-.6 1.5-1.5 0-.4-.1-.8-.4-1.1-.3-.3-.5-.8-.5-1.3 0-.9.7-1.6 1.6-1.6h2.8c3.9 0 7.1-3.2 7.1-7.1C22 6.5 17.5 2 12 2z"/></svg>
+                <div class="label-group"><span class="label-zh">藝術創作</span><br><span class="label-en">Arts</span></div>
+            </a>
+        </div>
     </div>
 
-    <div class="container">
-        <section class="section" id="about">
-            <h2>👤 關於我 | About Me</h2>
-            <p>你好，我是鍾佳言。目前專注於跨領域的學習與整合，我相信不同學科間的碰撞能產生最有趣的火花。</p>
-            <p style="margin-top: 15px;">
-                在快速變動的數位時代，我試圖在<strong>科學探究的嚴謹</strong>、<strong>金融市場的理性</strong>、<strong>資安研究的攻防</strong>中磨練邏輯，並在<strong>人文藝術的感性</strong>中保持對世界的同理心。
-            </p>
-        </section>
-
-        <!-- 🌀 核心歷程：環繞排版區塊 -->
-        <section class="section" id="journey">
-            <h2>💡 核心歷程 | Core Journey</h2>
-            <div class="journey-orbit-container">
-                <!-- 中央核心照片 -->
-                <div class="core-photo-wrapper">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=400&h=400&q=80" alt="鍾佳言" class="core-photo">
-                </div>
-
-                <!-- 環繞項目 -->
-                <a href="#science" class="orbit-card pos-1">
-                    <span class="icon">🧪</span>
-                    <div class="text-group">
-                        <span>科學研究</span>
-                        <div class="small-desc">實驗探究與數據分析</div>
-                    </div>
-                </a>
-                <a href="#finance" class="orbit-card pos-2">
-                    <span class="icon">💰</span>
-                    <div class="text-group">
-                        <span>財金領域</span>
-                        <div class="small-desc">量化分析與市場洞察</div>
-                    </div>
-                </a>
-                <a href="#tech" class="orbit-card pos-3">
-                    <span class="icon">💻</span>
-                    <div class="text-group">
-                        <span>資訊科技</span>
-                        <div class="small-desc">資安攻防與軟體開發</div>
-                    </div>
-                </a>
-                <a href="#humanity" class="orbit-card pos-4">
-                    <span class="icon">📖</span>
-                    <span>人文社會</span>
-                    <div class="small-desc">社會觀察與寫作</div>
-                </a>
-                <a href="#art" class="orbit-card pos-5">
-                    <span class="icon">🎨</span>
-                    <span>藝術創作</span>
-                    <div class="small-desc">數位美學與視覺設計</div>
-                </a>
-            </div>
-        </section>
-
-        <section class="section" id="science">
-            <h2>🧪 科學研究 | Scientific Research</h2>
-            <p>在科學研究的過程中，我學習如何透過觀察提出假說，並設計嚴謹的實驗來驗證想法。我對自然科學的基礎探究充滿好奇心，尤其是如何利用數據建模來解釋複雜的現象。</p>
-        </section>
-
-        <section class="section" id="tech">
-            <h2>🛠️ 技術專長</h2>
-            <p>目前投入於資安研究，包含 Web 安全與網路協議分析。擅長利用程式自動化處理繁瑣任務，並持續探索 AI 在資訊安全領域的應用潛力。</p>
-        </section>
-
-        <footer id="contact">
-            <p>© 2026 鍾佳言. 跨域探索，永不止步。</p>
-        </footer>
+    <div class="content-section section" id="about">
+        <h2>關於自我</h2>
+        <p>
+            你好，我是鍾佳言。在跨領域的交匯點，我致力於尋找事物的本質。
+            對我而言，科學的嚴謹、財金的律動、技術的尖端、人文的深度與藝術的感性，
+            都是構建完整思考框架的拼圖。我不斷在這些領域中切換視角，
+            試圖用最理性的邏輯去解決最感性的問題，在多維度的探索中實踐自我價值。
+        </p>
     </div>
+
+    <footer>© 2026 CHUNG JIA YAN. ALL RIGHTS RESERVED.</footer>
 
     <script>
         const observerOptions = { threshold: 0.1 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('show');
             });
         }, observerOptions);
 
-        document.querySelectorAll('.section').forEach(section => {
-            observer.observe(section);
-        });
+        document.querySelectorAll('.section').forEach(section => observer.observe(section));
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const b1 = document.querySelector('.blob-1');
+            const b2 = document.querySelector('.blob-2');
+            if(b1) b1.style.transform = `translate(${scrolled * 0.1}px, ${scrolled * 0.05}px)`;
+            if(b2) b2.style.transform = `translate(-${scrolled * 0.05}px, -${scrolled * 0.1}px)`;
         });
     </script>
 </body>

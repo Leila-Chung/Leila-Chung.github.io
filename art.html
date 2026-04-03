@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
@@ -172,14 +172,14 @@
             margin: 0 auto;
         }
 
-        .slide-img {
+        .slide-img, .slide-video {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: none;
         }
 
-        .slide-img.active {
+        .slide-img.active, .slide-video.active {
             display: block;
         }
 
@@ -247,6 +247,14 @@
             border-color: var(--accent-gold);
             color: var(--text-dark);
             transform: translateY(-3px);
+        }
+
+        /* 中置連結樣式 */
+        .link-centered {
+            grid-column: 1 / -1;
+            max-width: 300px;
+            margin: 0 auto;
+            width: 100%;
         }
 
         footer {
@@ -338,31 +346,28 @@
             </details>
         </div>
 
-        <!-- 專案二：模擬投資 -->
+        <!-- 專案二：FlipaClip動畫製作練習 (更新) -->
         <div class="project-item">
             <div class="project-header">
-                <span class="project-tag">SIMULATED INVESTMENT</span>
-                <h2>投資理財入門：模擬投資</h2>
+                <span class="project-tag">2D ANIMATION</span>
+                <h2>FlipaClip動畫製作練習</h2>
             </div>
             
-            <div class="media-container" id="slider2">
-                <img src="TSMC_stock1.JPG" class="slide-img active" alt="市場趨勢 1">
-                <img src="TSMC_stock2.JPG" class="slide-img" alt="市場趨勢 2">
-                <img src="TSMC_stock3.JPG" class="slide-img" alt="市場趨勢 3">
-                
-                <button class="nav-btn" style="left:20px;" onclick="changeSlide(-1, 1)"><i data-lucide="chevron-left"></i></button>
-                <button class="nav-btn" style="right:20px;" onclick="changeSlide(1, 1)"><i data-lucide="chevron-right"></i></button>
+            <div class="media-container">
+                <video class="slide-video active" autoplay loop muted playsinline>
+                    <source src="frenchfries.video.mp4" type="video/mp4">
+                    您的瀏覽器不支援影片播放。
+                </video>
             </div>
 
             <p>
-                2024 年 3 月，我選修投資理財課程，並以模擬資金新台幣 500 萬元進行投資實作。在本次操作中，我配置了台積電、京元電子、緯創等科技類股，以及長榮等航運類股，進行跨產業資產配置。最終投資組合獲利 212,781 元。透過此次實作，我不僅加深了對股票基礎知識的理解，也對進出場時機判斷所依據的各類數據有了更深入的認識。並於 2024 年 5 月上台進行成果報告，分享投資策略與操作歷程。
+                2024 年 7 月，出於對動畫製作的好奇，我使用 FlipaClip 製作逐格動畫，成果為耗時 3 小時 200 多頁的小動畫。透過這次體驗我體會到了早期動畫製作的艱辛，使我更加珍惜每一部作品和得來不易的科技發展。
             </p>
 
             <details>
                 <summary>相關資源 / RESOURCES</summary>
                 <div class="link-grid">
-                    <a href="simulated.investment.report.pdf" target="_blank" class="link-item"><i data-lucide="file-text" style="width: 16px;"></i> 書面報告 (PDF)</a>
-                    <a href="simulated.investment.report1.jpg" target="_blank" class="link-item"><i data-lucide="image" style="width: 16px;"></i> 上台發表PPT</a>
+                    <a href="https://youtu.be/HEQWPU8CJV0" target="_blank" class="link-item link-centered"><i data-lucide="youtube" style="width: 16px;"></i> 吃薯條動畫YT連結</a>
                 </div>
             </details>
         </div>
@@ -408,7 +413,7 @@
     let slideStates = [0, 0, 0];
     const sliders = [
         document.querySelectorAll('#slider1 .slide-img'),
-        document.querySelectorAll('#slider2 .slide-img'),
+        [], // 專案二現在是單一影片，不需要輪播
         document.querySelectorAll('#slider3 .slide-img')
     ];
 

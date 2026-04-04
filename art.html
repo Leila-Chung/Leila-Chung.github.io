@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
@@ -294,16 +294,15 @@
         <div class="info-box">
             <h3><i data-lucide="briefcase" style="width: 18px;"></i> VISION</h3>
             <p style="font-size: 0.9rem; color: var(--text-gray); line-height: 2;">
-                整合數據與市場邏輯，致力於量化分析與風險控管，在複雜的市場中建立清晰的判斷架構。
+                透過在日常生活的細節中發現藝術與美感，我逐漸培養對生活的感激與觀察力，也在多元探索中發展跨領域整合的能力。
             </p>
         </div>
 
         <div class="info-box">
             <h3><i data-lucide="calendar" style="width: 18px;"></i> MILESTONES</h3>
             <div style="font-size: 0.9rem; line-height: 2.5;">
-                <div>研究成果發表 <span style="color: var(--accent-gold); margin-left: 8px;">2026.03</span></div>
-                <div>模擬投資實踐 <span style="color: var(--accent-gold); margin-left: 8px;">2024.05</span></div>
-                <div>深度閱讀交流 <span style="color: var(--accent-gold); margin-left: 8px;">2024.01</span></div>
+                <div>高二英文話劇 <span style="color: var(--accent-gold); margin-left: 8px;">2024.08</span></div>
+                <div>FlipaClip動畫練習 <span style="color: var(--accent-gold); margin-left: 8px;">2024.07</span></div>
             </div>
         </div>
     </div>
@@ -346,7 +345,7 @@
             </details>
         </div>
 
-        <!-- 專案二：FlipaClip動畫製作練習 (更新) -->
+        <!-- 專案二：FlipaClip動畫製作練習 -->
         <div class="project-item">
             <div class="project-header">
                 <span class="project-tag">2D ANIMATION</span>
@@ -372,34 +371,6 @@
             </details>
         </div>
 
-        <!-- 專案三：新書分享會 -->
-        <div class="project-item">
-            <div class="project-header">
-                <span class="project-tag">BOOK TALK & ANALYSIS</span>
-                <h2>Nicholas Mulder《經濟武器》新書分享會</h2>
-            </div>
-            
-            <div class="media-container" id="slider3">
-                <img src="the.eco.weapon.jpg" class="slide-img active" alt="新書分享會照片 1">
-                <img src="the.eco.weapon2.jpg" class="slide-img" alt="新書分享會照片 2">
-                <img src="the.eco.weapon3.jpg" class="slide-img" alt="新書分享會照片 3">
-                
-                <button class="nav-btn" style="left:20px;" onclick="changeSlide(-1, 2)"><i data-lucide="chevron-left"></i></button>
-                <button class="nav-btn" style="right:20px;" onclick="changeSlide(1, 2)"><i data-lucide="chevron-right"></i></button>
-            </div>
-
-            <p>
-                出自於好奇中美間經濟制裁之影響程度，以及經濟制裁是否有效阻止俄羅斯停止俄烏戰爭，我閱讀了《經濟武器》並對於作者不同普遍經濟制裁的看法印象深刻，2024 年 1 月於左轉有書書店參與了《經濟武器》新書發表會，過程中 Nicholas Mulder 侃侃而談他對中美、中台及國際局勢的看法。會後，我與 Nicholas Mulder 合影簽書，留下難忘的回憶。
-            </p>
-
-            <details>
-                <summary>閱讀筆記 / NOTES</summary>
-                <div class="link-grid">
-                    <a href="#" class="link-item" style="grid-column: span 2;"><i data-lucide="book-open" style="width: 16px;"></i> 關鍵觀點摘錄</a>
-                </div>
-            </details>
-        </div>
-
     </main>
 </div>
 
@@ -410,11 +381,10 @@
 <script>
     lucide.createIcons();
 
-    let slideStates = [0, 0, 0];
+    let slideStates = [0, 0];
     const sliders = [
         document.querySelectorAll('#slider1 .slide-img'),
-        [], // 專案二現在是單一影片，不需要輪播
-        document.querySelectorAll('#slider3 .slide-img')
+        [] // 專案二為影片
     ];
 
     function changeSlide(step, idx) {
